@@ -23,7 +23,7 @@ jobs:
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_PASSWORD }}
-          login-server: ghcr.io
+          registry: ghcr.io
 
       - name: Build Docker image
         run: docker build -t ${{ env.IMAGE_NAME }} .
