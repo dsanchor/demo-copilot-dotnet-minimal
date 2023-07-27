@@ -29,14 +29,7 @@ jobs:
         run: docker build -t ${{ env.IMAGE_NAME }} .
 
       - name: Tag Docker image
-        run: docker tag ${{ env.IMAGE_NAME }} ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-      - name: Push Docker image to GitHub Packages
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: ${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          registry: ghcr.io
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ env.GITHUB_TOKEN }}
+      - name: Push Docker image
+        run: docker push ghcr.io/${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
